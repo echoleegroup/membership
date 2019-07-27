@@ -1,0 +1,31 @@
+HELP.md
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+src/main/resources/application-polly.properties
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+/out/
+
+### Project Files ###
+gradlew
+gradlew.bat
+jdbc.properties
+polly.gradle
+settings.gradle
+.DS_Store
+gradle/
+

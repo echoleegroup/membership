@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fih.aiovpoint.mapper.UserPointsMapper">
+  <resultMap id="BaseResultMap" type="com.fih.aiovpoint.model.UserPoints">
+    <result column="userId" jdbcType="VARCHAR" property="userId" />
+    <result column="points" jdbcType="INTEGER" property="points" />
+    <result column="updateAt" jdbcType="TIMESTAMP" property="updateat" />
+  </resultMap>
+  <insert id="insert" parameterType="com.fih.aiovpoint.model.UserPoints">
+    insert into USER_POINTS (userId, points, updateAt
+      )
+    values (#{userId,jdbcType=VARCHAR}, #{points,jdbcType=INTEGER}, #{updateat,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select userId, points, updateAt
+    from USER_POINTS
+  </select>
+  <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select userId, points, updateAt
+    from USER_POINTS
+    where userId = #{userId,jdbcType=VARCHAR}
+  </select>
+  <select id="updatePoint" parameterType="com.fih.aiovpoint.model.UserPoints">
+    update USER_POINTS set points = #{points, jdbcType=INTEGER} where userId = #{userId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAllByAccount" resultMap="BaseResultMap">
+    select userId, points, updateAt
+    from USER_POINTS
+    where userId in
+    <foreach collection="array" item="accountId" index="index" open="(" close=")" separator=",">
+      #{accountId}
+    </foreach>
+  </select>
+</mapper>

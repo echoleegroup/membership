@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fih.aiovpoint.mapper.ActionPointsMapper">
+  <resultMap id="BaseResultMap" type="com.fih.aiovpoint.model.ActionPoints">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="resourceType" jdbcType="VARCHAR" property="resourceType" />
+    <result column="module" jdbcType="VARCHAR" property="module" />
+    <result column="function" jdbcType="VARCHAR" property="function" />
+    <result column="value" jdbcType="INTEGER" property="value" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ACTION_POINTS
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fih.aiovpoint.model.ActionPoints">
+    insert into ACTION_POINTS (id, resourceType, module, 
+      function, value)
+    values (#{id,jdbcType=INTEGER}, #{resourcetype,jdbcType=VARCHAR}, #{module,jdbcType=VARCHAR}, 
+      #{function,jdbcType=VARCHAR}, #{value,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.fih.aiovpoint.model.ActionPoints">
+    update ACTION_POINTS
+    set resourceType = #{resourcetype,jdbcType=VARCHAR},
+      module = #{module,jdbcType=VARCHAR},
+      function = #{function,jdbcType=VARCHAR},
+      value = #{value,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, resourceType, module, function, value
+    from ACTION_POINTS
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, resourceType, module, function, value
+    from ACTION_POINTS
+  </select>
+  <select id="selectByResourceType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, resourceType, module, function, value
+    from ACTION_POINTS
+    where resourceType = #{resourceType,jdbcType=VARCHAR}
+  </select>
+</mapper>

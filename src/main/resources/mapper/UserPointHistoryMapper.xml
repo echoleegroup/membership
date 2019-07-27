@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fih.aiovpoint.mapper.UserPointHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.fih.aiovpoint.model.UserPointHistory">
+    <result column="requestId" jdbcType="VARCHAR" property="requestid" />
+    <result column="userId" jdbcType="VARCHAR" property="userid" />
+    <result column="createAt" jdbcType="TIMESTAMP" property="createat" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="value" jdbcType="INTEGER" property="value" />
+    <result column="currentTotal" jdbcType="INTEGER" property="currentTotal" />
+    <result column="resourceType" jdbcType="VARCHAR" property="resourceType" />
+    <result column="resourceId" jdbcType="VARCHAR" property="resourceId" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <insert id="insert" parameterType="com.fih.aiovpoint.model.UserPointHistory">
+    insert into USER_POINT_REQUESTS (requestId, userId, createAt,
+      type, value,currentTotal, resourceType,
+      resourceId, description)
+    values (#{requestid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{createat,jdbcType=TIMESTAMP},
+      #{type,jdbcType=INTEGER}, #{value,jdbcType=INTEGER}, #{currentTotal,jdbcType=INTEGER}, #{resourceType,jdbcType=VARCHAR},
+      #{resourceId,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectHistoryByUserId" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+    select requestId, userId, createAt, type, value, currentTotal, resourceType, resourceId, description
+    from USER_POINT_REQUESTS
+    where userId = #{userId,jdbcType=VARCHAR}
+    order by createAt desc
+    <if test="offset != null and size !=null">
+      limit #{size,jdbcType=INTEGER} offset #{offset,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="getTotalCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+    select count(*)
+    from USER_POINT_REQUESTS
+    where userId = #{userId,jdbcType=VARCHAR}
+    order by createAt desc
+  </select>
+</mapper>

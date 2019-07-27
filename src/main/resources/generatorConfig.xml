@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--<context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">-->
+        <!--&lt;!&ndash;<plugin type="tk.mybatis.mapper.generator.MapperPlugin">&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash; caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true &ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="caseSensitive" value="true"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</plugin>&ndash;&gt;-->
+        <!--<commentGenerator>-->
+            <!--<property name="suppressAllComments" value="true"/>-->
+        <!--</commentGenerator>-->
+        <!--<jdbcConnection driverClass="${driverClass}"-->
+                        <!--connectionURL="${connectionURL}"-->
+                        <!--userId="${userId}"-->
+                        <!--password="${password}">-->
+        <!--</jdbcConnection>-->
+        <!--<javaModelGenerator targetPackage="${modelPackage}" targetProject="${src_main_java}"/>-->
+        <!--<sqlMapGenerator targetPackage="${sqlMapperPackage}" targetProject="${src_main_resources}"/>-->
+        <!--<javaClientGenerator targetPackage="${mapperPackage}" targetProject="${src_main_java}" type="XMLMAPPER"/>-->
+        <!--&lt;!&ndash; 要生成的表 &ndash;&gt;-->
+        <!--&lt;!&ndash; 这里的百分号代表对该数据库中所有的表进行生成 &ndash;&gt;-->
+        <!--<table tableName="CRM_WXUser_Tags" domainObjectName="CrmWXUserTag">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+            <!--<ignoreColumn column="createAt"/>-->
+            <!--&lt;!&ndash;<ignoreColumn column="updateAt"/>&ndash;&gt;-->
+        <!--</table>-->
+    <!--</context>-->
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+    <!--<plugin type="tk.mybatis.mapper.generator.MapperPlugin">-->
+    <!--<property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>-->
+    <!--&lt;!&ndash; caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true &ndash;&gt;-->
+    <!--<property name="caseSensitive" value="true"/>-->
+    <!--</plugin>-->
+    <commentGenerator>
+    <property name="suppressAllComments" value="true"/>
+    </commentGenerator>
+    <jdbcConnection driverClass="${driverClass}"
+    connectionURL="${connectionURL}"
+    userId="${userId}"
+    password="${password}">
+    </jdbcConnection>
+    <javaModelGenerator targetPackage="${modelPackage}" targetProject="${src_main_java}"/>
+    <sqlMapGenerator targetPackage="${sqlMapperPackage}" targetProject="${src_main_resources}"/>
+    <javaClientGenerator targetPackage="${mapperPackage}" targetProject="${src_main_java}" type="XMLMAPPER"/>
+    <!-- 要生成的表 -->
+    <!-- 这里的百分号代表对该数据库中所有的表进行生成 -->
+    <table tableName="ACTION_POINTS" domainObjectName="ActionPoints">
+    </table>
+    </context>
+</generatorConfiguration>

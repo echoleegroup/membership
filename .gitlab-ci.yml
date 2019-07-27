@@ -1,0 +1,60 @@
+image: docker:stable
+services:
+  - docker:dind
+
+variables:
+  DOCKER_DRIVER: overlay
+  SPRING_PROFILES_ACTIVE: develop
+  DOCKER_OPTS: --mtu=1300
+
+before_script:
+  - echo "$CI_DOKCER_USER, $CI_DOKCER_TOKEN, $CI_REGISTRY" # debug
+  - echo "$CI_COMMIT_REF_NAME"
+
+stages:
+  - build
+  - package
+  - deploy
+
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+    - build/libs
+
+gradle-build:
+  image: gradle:4.10.2-jdk8
+  stage: build
+  script:
+    - gradle build
+  only:
+    - master
+
+
+docker-build:
+  stage: package
+  script:
+#    - export DOCKER_HOST='tcp://localhost:2375'
+    - docker login -u $CI_DOKCER_USER -p $CI_DOKCER_TOKEN $CI_REGISTRY
+    - docker build -f docker/Dockerfile -t $CI_REGISTRY/fih/aiov-membership:$CI_COMMIT_REF_NAME .
+    - docker push $CI_REGISTRY/fih/aiov-membership:$CI_COMMIT_REF_NAME
+  only:
+    - master
+
+deploy-war:
+  stage: deploy
+  script:
+#    - echo "Run server on 10.57.52.8"
+#    - docker stop aiovpoint
+#    - docker rm aiovpoint
+    - chmod +x checkDockerImage.sh
+    - ./checkDockerImage.sh
+    - docker run -d -p 8081:8081 --name aiovpoint --mount 'type=bind,src=/root/aiov/docker/logs,target=/root/aiov/logs' $CI_REGISTRY/fih/aiov-membership:$CI_COMMIT_REF_NAME -e version=develop --restart=unless-stopped
+  environment:
+    name: aiovpoint
+    url: https://automotivemembership-br-api.shoptrekkers.cn
+  only:
+    - master
+
+after_script:
+  - echo "End CI/CD"
